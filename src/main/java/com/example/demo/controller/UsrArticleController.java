@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,9 +29,13 @@ public class UsrArticleController {
 	}
 	
 	@GetMapping("/usr/article/list")
-	@ResponseBody
-	public List<Article> list() {
-		return this.articleService.showList();
+	public String list(Model model) {
+		
+		List<Article> articles = this.articleService.showList();
+		
+		model.addAttribute("articles", articles);
+		
+		return "usr/article/list";
 	}
 	
 	@GetMapping("/usr/article/detail")
@@ -50,13 +55,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public String modify(int id, String title, String content) {
 		
-		Article article = this.articleService.getArticleById(id);
-		
-		if (article == null) {
-			return "그 번호에 해당하는 글은 없어";
-		}
-		
-		this.articleService.modifyArticle(article, title, content);
+		this.articleService.modifyArticle(id, title, content);
 		
 		return "수정 완료";
 	}
@@ -65,13 +64,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public String delete(int id) {
 		
-		Article article = this.articleService.getArticleById(id);
-		
-		if (article == null) {
-			return "그 번호에 해당하는 글은 없어";
-		}
-		
-		this.articleService.deleteArticle(article);
+		this.articleService.deleteArticle(id);
 		
 		return "삭제 완료";
 	}

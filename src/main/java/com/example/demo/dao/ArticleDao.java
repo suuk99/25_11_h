@@ -1,46 +1,58 @@
 package com.example.demo.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.dto.Article;
+@Mapper
+public interface ArticleDao {
 
-@Component
-public class ArticleDao {
-	private int lastArticleId;
-	private List<Article> articles;
-	
-	public ArticleDao() {
-		this.lastArticleId = 0;
-		this.articles = new ArrayList<>();
-	}
+	@Insert("""
+			INSERT INTO article
+				SET regDate = NOW()
+					, updateDate = NOW()
+					, title = #{title}
+					, content = #{content}
+			""")
+	public void writeArticle(String title, String content);
 
-	public void writeArticle(String title, String content) {
-		this.articles.add(new Article(++lastArticleId, title, content));
-	}
+	@Select("""
+			SELECT *
+				FROM article
+				ORDER BY id DESC
+			""")
+	public List<Article> showList();
 
-	public List<Article> showList() {
-		return this.articles;
-	}
+	@Select("""
+			SELECT *
+				FROM article
+				WHERE id = #{id}
+			""")
+	public Article getArticleById(int id);
 
-	public Article getArticleById(int id) {
-		for (Article article : this.articles) {
-			if (id == article.getId()) {
-				return article;
-			}
-		}
-		return null;
-	}
+	@Update("""
+			<script>
+			UPDATE article
+				SET updateDate = NOW()
+					<if test="title != null and title != ''">
+						, title = #{title}
+					</if>
+					<if test="content != null and content != ''">
+						, content = #{content}
+					</if>
+				WHERE id = #{id}
+			</script>
+			""")
+	public void modifyArticle(int id, String title, String content);
 
-	public void modifyArticle(Article article, String title, String content) {
-		article.setTitle(title);
-		article.setContent(content);
-	}
-
-	public void deleteArticle(Article article) {
-		this.articles.remove(article);
-	}
-	
+	@Delete("""
+			DELETE FROM article
+				WHERE id = #{id}
+			""")
+	public void deleteArticle(int id);
 }

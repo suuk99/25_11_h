@@ -28,12 +28,12 @@ public class ArticleService {
 		return this.articleDao.getArticleById(id);
 	}
 
-	public void modifyArticle(Article article, String title, String content) {
-		this.articleDao.modifyArticle(article, title, content);
+	public void modifyArticle(int id, String title, String content) {
+		this.articleDao.modifyArticle(id, title, content);
 	}
 
-	public void deleteArticle(Article article) {
-		this.articleDao.deleteArticle(article);
+	public void deleteArticle(int id) {
+		this.articleDao.deleteArticle(id);
 	}
 
 }
