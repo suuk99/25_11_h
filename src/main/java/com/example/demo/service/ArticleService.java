@@ -24,4 +24,16 @@ public class ArticleService {
 		return this.articleDao.showList();
 	}
 
+	public Article getArticleById(int id) {
+		return this.articleDao.getArticleById(id);
+	}
+
+	public void modifyArticle(Article article, String title, String content) {
+		this.articleDao.modifyArticle(article, title, content);
+	}
+
+	public void deleteArticle(Article article) {
+		this.articleDao.deleteArticle(article);
+	}
+
 }

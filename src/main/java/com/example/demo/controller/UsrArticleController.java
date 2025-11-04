@@ -33,4 +33,47 @@ public class UsrArticleController {
 		return this.articleService.showList();
 	}
 	
+	@GetMapping("/usr/article/detail")
+	@ResponseBody
+	public Object detail(int id) {
+		
+		Article article = this.articleService.getArticleById(id);
+		
+		if (article == null) {
+			return "그 번호에 해당하는 글은 없어";
+		}
+		
+		return article;
+	}
+	
+	@GetMapping("/usr/article/modify")
+	@ResponseBody
+	public String modify(int id, String title, String content) {
+		
+		Article article = this.articleService.getArticleById(id);
+		
+		if (article == null) {
+			return "그 번호에 해당하는 글은 없어";
+		}
+		
+		this.articleService.modifyArticle(article, title, content);
+		
+		return "수정 완료";
+	}
+	
+	@GetMapping("/usr/article/delete")
+	@ResponseBody
+	public String delete(int id) {
+		
+		Article article = this.articleService.getArticleById(id);
+		
+		if (article == null) {
+			return "그 번호에 해당하는 글은 없어";
+		}
+		
+		this.articleService.deleteArticle(article);
+		
+		return "삭제 완료";
+	}
+	
 }
