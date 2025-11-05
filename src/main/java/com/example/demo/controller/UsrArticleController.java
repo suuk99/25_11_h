@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Article;
@@ -20,12 +21,19 @@ public class UsrArticleController {
 	}
 	
 	@GetMapping("/usr/article/write")
+	public String write() {
+		return "usr/article/write";
+	}
+	
+	@PostMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String write(String title, String content) {
+	public String doWrite(String title, String content) {
 		
 		this.articleService.writeArticle(title, content);
 		
-		return "글 작성 완료";
+		int id = this.articleService.getLastInsertId();
+		
+		return String.format("<script>alert('%d번 게시물의 작성이 완료되었습니다'); location.replace('detail?id=%d');</script>", id, id);
 	}
 	
 	@GetMapping("/usr/article/list")
@@ -39,25 +47,32 @@ public class UsrArticleController {
 	}
 	
 	@GetMapping("/usr/article/detail")
-	@ResponseBody
-	public Object detail(int id) {
+	public String detail(Model model, int id) {
 		
 		Article article = this.articleService.getArticleById(id);
 		
-		if (article == null) {
-			return "그 번호에 해당하는 글은 없어";
-		}
+		model.addAttribute("article", article);
 		
-		return article;
+		return "usr/article/detail";
 	}
 	
 	@GetMapping("/usr/article/modify")
-	@ResponseBody
-	public String modify(int id, String title, String content) {
+	public String modify(Model model, int id) {
 		
+		Article article = this.articleService.getArticleById(id);
+		
+		model.addAttribute("article", article);
+		
+		return "usr/article/modify";
+	}
+	
+	@PostMapping("/usr/article/doModify")
+	@ResponseBody
+	public String doModify(int id, String title, String content) {
+
 		this.articleService.modifyArticle(id, title, content);
 		
-		return "수정 완료";
+		return String.format("<script>alert('%d번 게시물의 수정이 완료되었습니다'); location.replace('detail?id=%d');</script>", id, id);
 	}
 	
 	@GetMapping("/usr/article/delete")
@@ -66,7 +81,7 @@ public class UsrArticleController {
 		
 		this.articleService.deleteArticle(id);
 		
-		return "삭제 완료";
+		return String.format("<script>alert('%d번 게시물의 삭제가 완료되었습니다'); location.replace('list');</script>", id);
 	}
 	
 }

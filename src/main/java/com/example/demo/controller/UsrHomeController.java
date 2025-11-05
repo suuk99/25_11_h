@@ -11,4 +11,9 @@ public class UsrHomeController {
 		return "usr/home/main";
 	}
 	
+	@GetMapping("/")
+	public String showRoot() {
+		return "redirect:/usr/home/main";
+	}
+	
 }
