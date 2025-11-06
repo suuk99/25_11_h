@@ -5,26 +5,27 @@
 <c:set var="pageTitle" value="목록"/>
 
 <%@ include file="/view/usr/common/header.jsp" %>
-
-	<div>리스트</div>
-	
-	<table border="1">
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성일</th>
-		</tr>
-		<c:forEach items="${articles }" var="article">
+	<nav class="list">
+		<div class="top_name">리스트</div>
+		
+		<table border="1">
 			<tr>
-				<td>${article.getId() }</td>
-				<td><a href="/usr/article/detail?id=${article.getId() }">${article.getTitle() }</a></td>
-				<td>${article.getRegDate() }</td>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성일</th>
 			</tr>
-		</c:forEach>
-	</table>
-	
-	<div>
-		<a href="/usr/article/write">글쓰기</a>
-	</div>
+			<c:forEach items="${articles }" var="article">
+				<tr>
+					<td>${article.getId() }</td>
+					<td><a href="/usr/article/detail?id=${article.getId() }">${article.getTitle() }</a></td>
+					<td>${article.getRegDate() }</td>
+				</tr>
+			</c:forEach>
+		</table>
+		
+		<div class="btn">
+			<a href="/usr/article/write">글쓰기</a>
+		</div>
+	</nav>
 	
 <%@ include file="/view/usr/common/footer.jsp" %>

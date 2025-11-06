@@ -5,7 +5,23 @@
 <c:set var="pageTitle" value="메인"/>
 
 <%@ include file="/view/usr/common/header.jsp" %>
-
-	<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat eaque soluta asperiores magni ab inventore non atque quas consequatur libero facere nihil eius earum consectetur dolorem quod recusandae impedit rem.</div>
-
+		<div class="main">
+			<div class="main_title">WELCOME TO ARTICLE</div>
+			<div class="main_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam repellendus totam in atque cum blanditiis nihil harum laboriosam ducimus inventore? Cupiditate vitae ea amet impedit sed nemo in minus voluptate.
+			</div>
+		</div>
 <%@ include file="/view/usr/common/footer.jsp" %>

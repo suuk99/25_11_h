@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+
+@font-face {
+    font-family: 'Suit';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-display: swap;
+}
+html * {
+	font-family: 'Suit';
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+section {
+	display: flex;
+	justify-content: space-between;
+}
+
+/* header  */
+.top {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.top > a {
+	padding: 18px;
+	font-size: 22px;
+	margin-right: 40px;
+	text-align:center;
+}
+
+.logo {
+	display: flex;
+	justify-content: center;
+}
+.logo > a {
+	font-size: 31px;
+	font-weight: bold;
+	padding: 20px;
+	margin-left: 60px;
+}
+
+/* lorem */
+.main {
+	width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 70px;
+}
+.main_title {
+	font-size: 28px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+/* 리스트 */
+.list {
+	margin-top: 70px;
+}
+.list table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.list div {
+	text-align: center;
+	margin-bottom: 15px;
+	margin-top: 7px;
+}
+
+.list .top_name {
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.list table tr {
+	border: 1px solid black;
+}
+
+.list table tr th {
+	padding: 5px 30px;
+	border: 1px solid black;	
+}
+
+.list table tr td {
+	padding: 5px 20px;
+	text-align: center;
+	border: 1px solid black;
+}
+
+.list .btn a {
+	padding: 3px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+button {
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 0 5px;
+}
+
+.box {
+}
+
+input{
+}
+	
