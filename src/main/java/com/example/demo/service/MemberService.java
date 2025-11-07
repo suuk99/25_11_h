@@ -3,7 +3,7 @@ package com.example.demo.service;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.MemberDao;
-import com.example.demo.dto.Member;
+import com.example.demo.dto.MemberDto;
 
 @Service
 public class MemberService {
@@ -18,8 +18,15 @@ public class MemberService {
 		this.memberDao.joinMember(loginId, loginPw, userName, sex);
 	}
 
-	public Member getMemberLoginId(String loginId) {
-		// TODO Auto-generated method stub
+	public MemberDto getMemberLoginId(String loginId) {
 		return null;
+	}
+
+	public MemberDto getCheckId(String loginId) {
+		this.memberDao.getCheckId(loginId);
+	}
+
+	public void loginMember(String loginId, String loginPw) {
+		this.memberDao.loginMember(loginId, loginPw);
 	}
 }

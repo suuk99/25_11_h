@@ -25,5 +25,6 @@
 			<a href="/">홈</a>
 			<a href="/usr/article/list">리스트</a>
 			<a href="/usr/member/join">회원가입</a>
+			<a href="/usr/member/login">로그인</a>
 		</div>
 	</section>
