@@ -19,14 +19,14 @@ public class MemberService {
 	}
 
 	public MemberDto getMemberLoginId(String loginId) {
-		return null;
+		return this.memberDao.getMemberLoginId(loginId);
 	}
 
 	public MemberDto getCheckId(String loginId) {
-		this.memberDao.getCheckId(loginId);
+		return this.memberDao.getCheckId(loginId);
 	}
 
-	public void loginMember(String loginId, String loginPw) {
-		this.memberDao.loginMember(loginId, loginPw);
+	public MemberDto loginMember(String loginId, String loginPw) {
+		return this.memberDao.loginMember(loginId, loginPw);
 	}
 }

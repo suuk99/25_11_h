@@ -106,9 +106,9 @@ button {
 	padding: 0 5px;
 }
 
-.box {
+.header .top .ment {
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	padding: 0 35px;
 }
-
-input{
-}
-	

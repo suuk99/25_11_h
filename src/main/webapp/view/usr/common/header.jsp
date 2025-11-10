@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,9 +25,19 @@
 			</a>
 		</div>
 		<div class="top">
+			<c:if test="${sessionScope.loginMemberId != null }">
+				<div class="ment">환영합니다 ${sessionScope.loginMemberName}님</div>
+			</c:if>
 			<a href="/">홈</a>
 			<a href="/usr/article/list">리스트</a>
-			<a href="/usr/member/join">회원가입</a>
-			<a href="/usr/member/login">로그인</a>
+			
+			<c:if test="${sessionScope.loginMemberId == null}">	
+				<a href="/usr/member/join">회원가입</a>
+				<a href="/usr/member/login">로그인</a>
+			</c:if>		
+			
+			<c:if test="${sessionScope.loginMemberId != null }">
+				<a href="/usr/member/logout">로그아웃</a>
+			</c:if>
 		</div>
 	</section>

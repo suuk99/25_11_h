@@ -66,29 +66,27 @@ public class UsrMemberController {
 	
 	@GetMapping("/usr/member/checkId")
 	@ResponseBody
-	public String checkId(String loginId) {
+	public ResultData checkId(String loginId) {
 		
 		MemberDto member = this.memberService.getCheckId(loginId);
 		
 		if (member != null) {
-			return "이미 사용중인 아이디 입니다.";
+			return new ResultData<>("F-1", "이미 사용중인 아이디 입니다.");
 		}
-		return "사용가능한 아이디 입니다.";
+		return new ResultData<>("S-1", "사용 가능한 아이디 입니다.");
 	}
 	
+	
+	
 	@GetMapping("/usr/member/login")
-	public String login(HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
+	public String login() {
 		
 		return "/usr/member/login";
 	}
 	
 	@PostMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(String loginId, String loginPw) {
-		
-		this.memberService.loginMember(loginId, loginPw);
+	public String doLogin(String loginId, String loginPw, HttpSession session) {
 		
 		if (loginId.trim().length() == 0) {
 			return Util.jsReplace("아이디를 입력해 주세요.", "hb");
@@ -97,7 +95,30 @@ public class UsrMemberController {
 		if (loginPw.trim().length() == 0) {
 			return Util.jsReplace("비밀번호를 입력해 주세요.","hb");
 		}
+		
+		// 아이디 존재 여부 확인
+		MemberDto member = this.memberService.getMemberLoginId(loginId);
+		if (member == null) {
+			return Util.jsReplace("존재하지 않는 아이디 입니다.", "hb");
+		}
+		
+		// 로그인 검증
+		MemberDto loginMember = this.memberService.loginMember(loginId, loginPw);
+		if (loginMember == null) {
+			return Util.jsReplace("비밀번호가 일치하지 않습니다.", "hb");
+		}
+		
+		// 로그인 성공 시 세션에 저장
+		session.setAttribute("loginMemberId", loginMember.getId());
+		session.setAttribute("loginMemberName", loginMember.getUserName());
 		return Util.jsReplace(null, "/");
+	}
+	
+	@GetMapping("/usr/member/logout")
+	@ResponseBody
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return Util.jsReplace("로그아웃이 완료 되었습니다.", "/");
 	}
 	
 

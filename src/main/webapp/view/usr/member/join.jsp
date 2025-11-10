@@ -7,40 +7,101 @@
 <%@ include file="/view/usr/common/header.jsp"%>
 
 <script>
-	const checkId = function(el) {
-		el.value = el.value.trim();
+	let checkLogin = null;
+	const joinSubmit = function(form) {
+		form.loginId.value = form.loginId.value.trim();
+		form.loginPw.value = form.loginPw.value.trim();
+		form.checkPw.value = form.checkPw.value.trim();
+		form.userName.value = form.userName.value.trim();
 		
+		if (form.loginId.value.length == 0) {
+			alert('아이디를 입력하세요.');
+			form.loginId.focus();
+			return false;
+		}
+		
+		if (form.loginId.value != checkLogin) {
+			alert('이미 사용중인 아이디 입니다.');
+			form.loginId = '';
+			form.loginId.focus();
+			return false;
+		}
+		
+		if (form.loginPw.value.length == 0) {
+			alert('비밀번호를 입력하세요.');
+			form.loginPw.focus();
+			return false;
+		}
+		
+		if (form.checkPw.value.length == 0) {
+			alert('비밀번호가 일치한지 확인해 주세요.');
+			form.checkPw.focus();
+			return false;
+		}
+		
+		if (form.loginPw.value != form.checkPw.value) {
+			alert('비밀번호가 일치하지 않습니다.');
+			form.loginPw.value = '';
+			form.checkPw.value = '';
+			form.loginPw.focus();
+			return false;
+			
+		}
+		
+		if (form.userName.value.length == 0) {
+			alert('이름을 입력하세요.');
+			form.userName.focus();
+			return false;
+		}
+		
+		if (form.sex.value == 'choice') {
+			alert('성별을 선택해 주세요.');
+			form.sex.focus();
+			return false;
+		}
+		return true;
+	}
+	const checkId = function(el) {
+		
+		el.value = el.value.trim();
 		let msg = $('#msg');
-		// 여러번 사용될 걸 대비해 변수 저장
 		
 		if (el.value.length == 0) {
-			$('#msg').addClass('text-red-500');
-			// 폰트 색상 변경을 위해서 클래스를 추가함
-			$('#msg').html('아이디를 입력해 주세요.');
+			msg.addClass('text-red-500');
+			msg.removeClass('text-green-500');
+			msg.html('아이디를 입력하세요.');
 			return;
 		}
 		
-		// 비동기 시작
 		$.ajax({
 			url: '/usr/member/checkId',
 			type: 'get',
 			data: {loginId:el.value},
 			dataType: 'json',
 			success: function(data) {
-				console.log(data);				
+				if (data.isSuccess) {
+					msg.removeClass('text-red-500');
+					msg.addClass('text-green-500');
+					msg.html(`${data.rsMsg}`);
+					checkLogin = el.value;
+				} else {
+					msg.removeClass('text-green-500');
+					msg.addClass('text-red-500');
+					msg.html(`${data.rsMsg}`);
+					checkLogin = null;
+				}
 			},
 			error: function(xhr, status, error) {
 				console.log(error);
-;			}
+			}
 		})
 	}
-
 
 </script>
 
 <nav class="list">
 	<div class="top_name">회원가입</div>
-	<form action="/usr/member/doJoin" method="post">
+	<form action="/usr/member/doJoin" method="post" onsubmit="return joinSubmit(this)">
 		<table border="1">
 			<tr>
 				<th>아이디</th>

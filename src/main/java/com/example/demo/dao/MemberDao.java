@@ -18,16 +18,26 @@ public interface MemberDao {
 					sex = #{sex},
 					regDate = NOW()
 			""")
-	public void joinMember(String loginId, String loginPw, String userName, String sex);
+	void joinMember(String loginId, String loginPw, String userName, String sex);
 
-
-	public void getCheckId(String loginId);
-
-	
+	// 아이디 중복 확인용
 	@Select("""
 			SELECT * FROM `member`
-				WHERE loginId = #{loginId} AND loginPw = #{loginPw}
+			WHERE loginId = #{loginId}
 			""")
-	public MemberDto loginMember(String loginId, String loginPw);
-		
+	MemberDto getCheckId(String loginId);
+	
+	// 아이디로 회원 조회
+	@Select("""
+			SELECT * FROM `member`
+			WHERE loginId = #{loginId}
+			""")
+	MemberDto getMemberLoginId(String loginId);
+	
+	// 로그인용 (아이디+비번 일치 확인)
+	@Select("""
+			SELECT * FROM `member`
+			WHERE loginId = #{loginId} AND loginPw = #{loginPw}
+			""")
+	MemberDto loginMember(String loginId, String loginPw);
 }

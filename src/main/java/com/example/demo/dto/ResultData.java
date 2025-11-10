@@ -25,5 +25,4 @@ public class ResultData<DT> {
 	public boolean isFail() {
 		return this.isSuccess() == false;
 	}
-	
 }
