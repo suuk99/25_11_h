@@ -24,7 +24,10 @@
 		</table>
 		
 		<div class="btn">
-			<a href="/usr/article/write">글쓰기</a>
+			<button onclick="history.back();">뒤로가기</button>
+			<c:if test="${sessionScope.loginMemberId != null }">
+				<a href="/usr/article/write">글쓰기</a>
+			</c:if>
 		</div>
 	</nav>
 	

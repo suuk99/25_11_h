@@ -62,8 +62,8 @@
 		return true;
 	}
 	const checkId = function(el) {
-		
 		el.value = el.value.trim();
+		console.log(el.value);
 		let msg = $('#msg');
 		
 		if (el.value.length == 0) {
@@ -79,15 +79,16 @@
 			data: {loginId:el.value},
 			dataType: 'json',
 			success: function(data) {
-				if (data.isSuccess) {
+				console.log(data);
+				if (data.success) {
 					msg.removeClass('text-red-500');
 					msg.addClass('text-green-500');
-					msg.html(`${data.rsMsg}`);
+					msg.html(`\${data.rsMsg}`);
 					checkLogin = el.value;
 				} else {
 					msg.removeClass('text-green-500');
 					msg.addClass('text-red-500');
-					msg.html(`${data.rsMsg}`);
+					msg.html(`\${data.rsMsg}`);
 					checkLogin = null;
 				}
 			},
@@ -105,26 +106,26 @@
 		<table border="1">
 			<tr>
 				<th>아이디</th>
-				<td><input name="loginId" type="text" placeholder="아이디"
+				<td><input class="input input-neutral" name="loginId" type="text" placeholder="아이디"
 					onblur="checkId(this)" />
 					<div id="msg" class="mt-1 text-sm h-1 text-left"></div></td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input name="loginPw" type="password" placeholder="비밀번호" /></td>
+				<td><input class="input input-neutral" name="loginPw" type="password" placeholder="비밀번호" /></td>
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
-				<td><input name="checkPw" type="password" placeholder="비밀번호 확인" /></td>
+				<td><input class="input input-neutral" name="checkPw" type="password" placeholder="비밀번호 확인" /></td>
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input name="userName" type="text" placeholder="이름" /></td>
+				<td><input class="input input-neutral" name="userName" type="text" placeholder="이름" /></td>
 			</tr>
 			<tr>
 				<th>성별</th>
-				<td><select class="box" name="sex">
-						<option value="choice">== 성별 ==</option>
+				<td><select class="select select-neutral"name="sex">
+						<option value="choice">성별</option>
 						<option value="male">남자</option>
 						<option value="female">여자</option>
 				</select></td>

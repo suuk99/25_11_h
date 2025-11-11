@@ -14,11 +14,11 @@
 		<table border="1">
 			<tr>
 				<th>아이디</th>
-				<td><input name="loginId" type="text" placeholder="아이디" /></td>
+				<td><input class="input input-neutral" name="loginId" type="text" placeholder="아이디" /></td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input name="loginPw" type="password" placeholder="비밀번호" /></td>
+				<td><input class="input input-neutral" name="loginPw" type="password" placeholder="비밀번호" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><button>로그인</button></td>

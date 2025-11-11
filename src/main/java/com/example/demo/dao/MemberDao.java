@@ -27,6 +27,8 @@ public interface MemberDao {
 			""")
 	MemberDto getCheckId(String loginId);
 	
+	
+	
 	// 아이디로 회원 조회
 	@Select("""
 			SELECT * FROM `member`
@@ -34,7 +36,7 @@ public interface MemberDao {
 			""")
 	MemberDto getMemberLoginId(String loginId);
 	
-	// 로그인용 (아이디+비번 일치 확인)
+	// 로그인용 -> 아이디랑 비번 일치한지 확인
 	@Select("""
 			SELECT * FROM `member`
 			WHERE loginId = #{loginId} AND loginPw = #{loginPw}

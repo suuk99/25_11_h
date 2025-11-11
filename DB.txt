@@ -1,11 +1,33 @@
-DROP DATABASE IF EXISTS SB_AM;
 CREATE DATABASE SB_AM;
 USE SB_AM;
 
 CREATE TABLE article(
-    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-    , regDate DATETIME NOT NULL
-    , updateDate DATETIME NOT NULL
-    , title VARCHAR(100) NOT NULL
-    , content TEXT NOT NULL
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    memberId INT UNSIGNED NOT NULL,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    content TEXT NOT NULL
 );
+SELECT * FROM article;
+    
+DROP TABLE `member`
+
+CREATE TABLE `member`(
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    loginId VARCHAR(50) NOT NULL,
+    loginPw VARCHAR(100) NOT NULL,
+    userName VARCHAR(20) NOT NULL,
+    sex VARCHAR(10) NOT NULL,
+    regDate DATETIME NOT NULL
+);
+
+INSERT INTO `member` (loginId, loginPw, userName, sex, regDate) VALUES
+    ("ss","ss","ss","male",NOW());
+SELECT a.*, m.userName 
+    FROM article AS a
+    INNER JOIN `member` AS m
+    ON a.memberId = m.id
+    WHERE a.id = 
+    
+SELECT * FROM `member`;

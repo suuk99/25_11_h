@@ -22,6 +22,10 @@
 				<td>${article.getUpdateDate() }</td>
 			</tr>
 			<tr>
+				<th>작성자</th>
+				<td>${article.getWriterName() }</td>
+			</tr>
+			<tr>
 				<th>제목</th>
 				<td>${article.getTitle() }</td>
 			</tr>
@@ -33,8 +37,10 @@
 		
 		<div class="btn">
 			<button onclick="history.back();">뒤로가기</button>
-			<a href="/usr/article/modify?id=${article.getId() }">수정</a>
-			<a href="/usr/article/delete?id=${article.getId() }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
+			<c:if test="${sessionScope.loginMemberName == article.writerName}">
+				<a href="/usr/article/modify?id=${article.getId() }">수정</a>
+				<a href="/usr/article/delete?id=${article.getId() }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
+			</c:if>
 		</div>
 	</nav>
 <%@ include file="/view/usr/common/footer.jsp" %>

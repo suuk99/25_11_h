@@ -25,11 +25,11 @@
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input name="title" type="text" value="${article.getTitle() }" /></td>
+					<td><input class="input input-neutral" name="title" type="text" value="${article.getTitle() }" /></td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea name="content">${article.getContent() }</textarea></td>
+					<td><textarea class="input input-neutral" name="content">${article.getContent() }</textarea></td>
 				</tr>
 				<tr>
 					<td colspan="2"><button>수정</button></td>
