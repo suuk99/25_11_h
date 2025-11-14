@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ArticleDao;
 import com.example.demo.dto.Article;
+import com.example.demo.dto.Paging;
 
 @Service
 public class ArticleService {
@@ -20,8 +21,8 @@ public class ArticleService {
 		this.articleDao.writeArticle(title, content, loginMemberId, boardId);
 	}
 
-	public List<Article> showList(int boardId) {
-		return this.articleDao.showList(boardId);
+	public List<Article> showList(int boardId, Paging paging) {
+		return this.articleDao.showList(boardId, paging);
 	}
 
 	public Article getArticleById(int id) {
@@ -38,6 +39,11 @@ public class ArticleService {
 
 	public int getLastInsertId() {
 		return this.articleDao.getLastInsertId();
+	}
+
+	public int getTotalCountBoardId(int boardId) {
+		// TODO Auto-generated method stub
+		return this.articleDao.getTotalCountBoardId(boardId);
 	}
 
 }

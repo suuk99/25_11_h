@@ -24,7 +24,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-		
 		<div class="pagination">
     <c:if test="${paging.startPage > 1}">
         <a href="/usr/article/list?boardId=${boardId}&page=${paging.startPage - 1}">&laquo; 이전</a>

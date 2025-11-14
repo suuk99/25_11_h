@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.dto.Article;
+import com.example.demo.dto.Paging;
 @Mapper
 public interface ArticleDao {
 
@@ -28,11 +29,11 @@ public interface ArticleDao {
 				FROM article AS a
 				INNER JOIN `member` AS m
 				ON a.memberId = m.id
-				WHERE a.boardId = #{boardID}
+				WHERE a.boardId = #{boardId}
 				ORDER BY a.id DESC
-				LIMIT 10 OFFSET 0;
+				LIMIT #{paging.pageStart}, #{paging.amount};
 			""")
-	public List<Article> showList(int boardId);
+	public List<Article> showList(int boardId, Paging paging);
 
 	@Select("""
 			SELECT a.id, a.regDate, a.updateDate, a.title, a.content, m.loginId AS writerName
@@ -66,4 +67,7 @@ public interface ArticleDao {
 
 	@Select("SELECT LAST_INSERT_ID()")
 	public int getLastInsertId();
+
+	@Select("SELECT COUNT(*) FROM article WHERE boardId = #{boardId}")
+	public int getTotalCountBoardId(int boardId);
 }

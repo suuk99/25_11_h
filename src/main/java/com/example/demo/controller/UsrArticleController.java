@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Article;
+import com.example.demo.dto.Paging;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.BoardService;
 import com.example.demo.util.Util;
@@ -55,13 +58,17 @@ public class UsrArticleController {
 	}
 	
 	@GetMapping("/usr/article/list")
-	public String list(Model model, int boardId) {
+	public String list(Model model, int boardId, Paging paging, int page) {
 		
-		List<Article> articles = this.articleService.showList(boardId);
+		int totalCount = articleService.getTotalCountBoardId(boardId);
+		paging.setTotalCount(totalCount);
+		
+		List<Article> articles = this.articleService.showList(boardId, paging);
 		String boardName = this.boardService.getBoardNameById(boardId);
 		
 		model.addAttribute("articles", articles);
 		model.addAttribute("boardName", boardName);
+		model.addAttribute("paging", paging);
 		
 		return "usr/article/list";
 	}
