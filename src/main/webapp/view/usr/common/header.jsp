@@ -30,7 +30,15 @@
 				<div class="ment">환영합니다 ${sessionScope.loginMemberName}님</div>
 			</c:if>
 			<a href="/">홈</a>
-			<a href="/usr/article/list">리스트</a>
+		
+		    <div class="dropdown">
+        		<a href="#">리스트</a>
+        		<ul>
+            		<li><a href="/usr/article/list?boardId=1">공지사항</a></li>
+            		<li><a href="/usr/article/list?boardId=2">자유게시판</a></li>
+            		<li><a href="/usr/article/list?boardId=3">질문과 답변</a></li>
+        		</ul>
+    		</div>
 			
 			<c:if test="${sessionScope.loginMemberId == null}">	
 				<a href="/usr/member/join">회원가입</a>

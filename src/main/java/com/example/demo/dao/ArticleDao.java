@@ -19,17 +19,20 @@ public interface ArticleDao {
 					, updateDate = NOW()
 					, title = #{title}
 					, content = #{content}
+					, boardId = #{boardId}
 			""")
-	public void writeArticle(String title, String content, int loginMemberId);
+	public void writeArticle(String title, String content, int loginMemberId, int boardId);
 
 	@Select("""
 			SELECT a.id, a.regDate, a.title, m.loginId AS writerName
 				FROM article AS a
 				INNER JOIN `member` AS m
 				ON a.memberId = m.id
-				ORDER BY id DESC
+				WHERE a.boardId = #{boardID}
+				ORDER BY a.id DESC
+				LIMIT 10 OFFSET 0;
 			""")
-	public List<Article> showList();
+	public List<Article> showList(int boardId);
 
 	@Select("""
 			SELECT a.id, a.regDate, a.updateDate, a.title, a.content, m.loginId AS writerName

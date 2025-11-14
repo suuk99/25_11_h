@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Article;
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.BoardService;
 import com.example.demo.util.Util;
 
 import jakarta.servlet.http.HttpSession;
@@ -18,9 +19,11 @@ import jakarta.servlet.http.HttpSession;
 public class UsrArticleController {
 	
 	private ArticleService articleService;
+	private BoardService boardService;
 	
-	public UsrArticleController(ArticleService articleService) {
+	public UsrArticleController(ArticleService articleService, BoardService boardService) {
 		this.articleService = articleService;
+		this.boardService = boardService;
 	}
 	
 	@GetMapping("/usr/article/write")
@@ -30,9 +33,21 @@ public class UsrArticleController {
 	
 	@PostMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpSession session, String title, String content) {
+	public String doWrite(HttpSession session, String title, String content, Integer boardId) {
 		
-		this.articleService.writeArticle(title, content,(int) session.getAttribute("loginMemberId"));
+		if (title.trim().length() == 0 ) {
+			return Util.jsReplace("제목을 입력해 주세요.", "hb");
+		}
+		
+		if (boardId.intValue() == 0) {
+			return Util.jsReplace("게시판을 선택해 주세요.", "hb");
+		}
+		
+		if (content.trim().length() == 0 ) {
+			return Util.jsReplace("내용을 입력해 주세요.", "hb");
+		}
+		
+		this.articleService.writeArticle(title, content,(int) session.getAttribute("loginMemberId"), boardId);
 		
 		int id = this.articleService.getLastInsertId();
 		
@@ -40,11 +55,13 @@ public class UsrArticleController {
 	}
 	
 	@GetMapping("/usr/article/list")
-	public String list(Model model) {
+	public String list(Model model, int boardId) {
 		
-		List<Article> articles = this.articleService.showList();
+		List<Article> articles = this.articleService.showList(boardId);
+		String boardName = this.boardService.getBoardNameById(boardId);
 		
 		model.addAttribute("articles", articles);
+		model.addAttribute("boardName", boardName);
 		
 		return "usr/article/list";
 	}

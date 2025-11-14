@@ -16,8 +16,17 @@
 					<td><input class="input input-neutral" name="title" type="text" placeholder="제목을 입력하세요."/></td>
 				</tr>
 				<tr>
+					<th>게시판</th>
+					<td><select class="select select-neutral" name="boardId" >
+						<option value="0">게시판 선택</option>
+						<option value="1">공지사항</option>
+						<option value="2">자유게시판</option>
+						<option value="3">질문과 답변</option>
+					</select></td>
+				</tr>
+				<tr>
 					<th>내용</th>
-					<td><textarea class="input input-neutral" name="content" placeholder="내용을 입력하세요."></textarea></td>
+					<td class="input_content"><textarea class="input input-neutral" name="content" placeholder="내용을 입력하세요."></textarea></td>
 				</tr>
 				<tr>
 					<td colspan="2"><button>작성</button></td>

@@ -25,10 +25,11 @@ section {
 .top {
 	display: flex;
 	justify-content: flex-end;
+	align-items: center;
 }
 
 .top > a {
-	padding: 18px;
+	padding: 17px;
 	font-size: 22px;
 	margin-right: 40px;
 	text-align:center;
@@ -50,7 +51,7 @@ section {
 	width: 900px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 70px;
+	margin-top: 90px;
 }
 .main_title {
 	font-size: 28px;
@@ -66,6 +67,7 @@ section {
 .list table {
 	margin-left: auto;
 	margin-right: auto;
+	width: 500px;
 }
 
 .list div {
@@ -89,13 +91,13 @@ section {
 }
 
 .list table tr td {
-	padding: 5px 20px;
+	padding: 6px 20px;
 	text-align: center;
 	border: 1px solid black;
 }
 
-.list .btn a {
-	padding: 3px;
+.list .btn > a {
+	padding: 2px;
 	border: 1px solid black;
 	border-radius: 5px;
 }
@@ -103,13 +105,55 @@ section {
 button {
 	border: 1px solid black;
 	border-radius: 5px;
-	padding: 0 5px;
+	padding: 2px;
 }
-
+/* 로그인 시 환영 멘트 */
 .header .top .ment {
 	display: flex;
 	align-items: center;
 	font-weight: bold;
 	padding: 0 35px;
-	margin-bottom: 12px;
+	margin-top: 7px;
+}
+
+.dropdown {
+	padding: 18px;
+	font-size: 22px;
+	margin-right: 40px;
+	text-align:center;
+	position: relative;
+}
+
+/* 리스트 2차 메뉴  */
+.dropdown > ul {
+	position: absolute;
+	font-size: 18px;
+	width: 120px;
+	text-align: left;
+	top: 70%;
+	display: none;
+	margin: 0;
+	background-color: #e6e8eb;
+}
+
+.dropdown:hover > ul{
+	margin-top: 5px;
+	display: block;
+}
+
+.dropdown > ul > li {
+	padding:8px 3px;
+}
+
+.dropdown ul li:hover {
+	background-color: #d8e0ed;
+}
+
+.input_content {
+	height: 400px;
+}
+
+.input_content > textarea {
+	height: 100%;
+	white-space: pre-wrap; 
 }

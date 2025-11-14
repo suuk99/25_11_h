@@ -1,17 +1,21 @@
 CREATE DATABASE SB_AM;
 USE SB_AM;
 
+DROP TABLE article;
 CREATE TABLE article(
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     memberId INT UNSIGNED NOT NULL,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
     title VARCHAR(50) NOT NULL,
-    content TEXT NOT NULL
+    content TEXT NOT NULL,
+    boardId INT UNSIGNED NOT NULL
 );
 SELECT * FROM article;
-    
-DROP TABLE `member`
+INSERT INTO article (memberId, regDate, updateDate, title, content, boardId) VALUES
+    (1, NOW(), NOW(), '1', '1', '1'),
+    (2, NOW(), NOW(), '2', '2', '2'),
+    (2, NOW(), NOW(), '3', '3', '3');
 
 CREATE TABLE `member`(
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -21,13 +25,19 @@ CREATE TABLE `member`(
     sex VARCHAR(10) NOT NULL,
     regDate DATETIME NOT NULL
 );
-
-INSERT INTO `member` (loginId, loginPw, userName, sex, regDate) VALUES
-    ("ss","ss","ss","male",NOW());
-SELECT a.*, m.userName 
-    FROM article AS a
-    INNER JOIN `member` AS m
-    ON a.memberId = m.id
-    WHERE a.id = 
     
 SELECT * FROM `member`;
+
+CREATE TABLE board (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    boardName VARCHAR(20) NOT NULL
+ );
+ 
+INSERT INTO board (boardName) 
+    VALUES ('공지사항'),
+           ('자유게시판'),
+           ('질문과 답변');
+           
+
+
+SELECT * FROM board;

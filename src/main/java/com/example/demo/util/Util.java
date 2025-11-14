@@ -39,7 +39,9 @@ public class Util {
 					const msg = '%s'.trim();
 
 					if (msg.length > 0) {
-						alert(msg);
+						requestAnimationFrame(() => {
+							alert(msg);
+						})
 					}
 
 					const uri = '%s'.trim();
@@ -47,8 +49,12 @@ public class Util {
 					if (uri == 'hb') {
 						history.back();
 					}
+					
+					setTimeout(() => {
+						location.replace(uri);
+					},100);
+					
 
-					location.replace(uri);
 				</script>
 				""", msg, uri);
 	}
