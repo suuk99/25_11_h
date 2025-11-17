@@ -31,7 +31,7 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td>${article.getContent() }</td>
+				<td class="content">${article.getContent() }</td>
 			</tr>
 		</table>
 		
@@ -39,7 +39,7 @@
 			<button onclick="history.back();">뒤로가기</button>
 			<c:if test="${sessionScope.loginMemberName == article.writerName}">
 				<a href="/usr/article/modify?id=${article.getId() }">수정</a>
-				<a href="/usr/article/delete?id=${article.getId() }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
+				<a href="/usr/article/delete?id=${article.getId() }&boardId=${article.getBoardId()}" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
 			</c:if>
 		</div>
 	</nav>

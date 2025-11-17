@@ -37,13 +37,13 @@ public class UsrArticleController {
 	@PostMapping("/usr/article/doWrite")
 	@ResponseBody
 	public String doWrite(HttpSession session, String title, String content, Integer boardId) {
+		// 비동기 방식 처리 해보기
+		if (boardId.intValue() == 0) {
+			return Util.jsReplace("게시판을 선택해 주세요.", "hb");
+		}
 		
 		if (title.trim().length() == 0 ) {
 			return Util.jsReplace("제목을 입력해 주세요.", "hb");
-		}
-		
-		if (boardId.intValue() == 0) {
-			return Util.jsReplace("게시판을 선택해 주세요.", "hb");
 		}
 		
 		if (content.trim().length() == 0 ) {
@@ -58,17 +58,39 @@ public class UsrArticleController {
 	}
 	
 	@GetMapping("/usr/article/list")
+<<<<<<< HEAD
 	public String list(Model model, int boardId, Paging paging, int page) {
 		
 		int totalCount = articleService.getTotalCountBoardId(boardId);
 		paging.setTotalCount(totalCount);
 		
 		List<Article> articles = this.articleService.showList(boardId, paging);
+=======
+	public String list(Model model, Integer boardId, String keyword) {
+		
+		if (keyword != null) {
+			keyword = keyword.trim();
+			
+			if (keyword.trim().length() == 0) {
+				keyword = null;
+			}
+		}
+		
+		if (boardId == null) {
+			boardId = 1;
+		}
+
+		List<Article> articles = this.articleService.showList(boardId, keyword);
+>>>>>>> 2f2db68 (게시판 검색 기능 구현 중)
 		String boardName = this.boardService.getBoardNameById(boardId);
 		
 		model.addAttribute("articles", articles);
 		model.addAttribute("boardName", boardName);
+<<<<<<< HEAD
 		model.addAttribute("paging", paging);
+=======
+		model.addAttribute("boardId",boardId);
+>>>>>>> 2f2db68 (게시판 검색 기능 구현 중)
 		
 		return "usr/article/list";
 	}
@@ -104,11 +126,11 @@ public class UsrArticleController {
 	
 	@GetMapping("/usr/article/delete")
 	@ResponseBody
-	public String delete(int id) {
+	public String delete(int id, int boardId) {
 		
 		this.articleService.deleteArticle(id);
 		
-		return Util.jsReplace(String.format("%d번 게시물이 삭제 되었습니다.", id), "list");
+		return Util.jsReplace(String.format("%d번 게시물이 삭제 되었습니다.", id), String.format("list?boardId=%d", boardId));
 	}
 	
 }

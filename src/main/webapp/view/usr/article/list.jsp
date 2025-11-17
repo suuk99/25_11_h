@@ -8,6 +8,41 @@
 	<nav class="list">
 		<div class="top_name">${boardName}</div>
 		
+		<form id = "searchForm" action="list" method="get">
+		<select name="boardId">
+    		<c:forEach items="${boards}" var="board">
+        		<option value="${board.id}" ${board.id == boardId ? "selected" : ""}>${board.name}</option>
+   			</c:forEach>
+		</select>
+		<div class="search">
+				<select name="searchPart" id="searchPart">
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="titleAndContent">제목 + 내용</option>
+				</select>
+				<input name="keyword" id="keyword" type="text" placeholder="검색어를 입력해주세요"/>
+				<a href="#" id="searchBtn">검색</a>
+			</div>
+		</form>
+		
+		<script>
+			$(function() {
+				$('#searchBtn').click(function(e) {
+					e.preventDefault();
+					
+					const keyword = $('#keyword').val().trim();
+					const searchPart = $('#searchPart').val();
+					const boardId = "${boardId}";
+					
+					if (!keyword) {
+						alert('검색어를 입력해 주세요.');
+						return;
+					}
+					$("#searchForm").submit();
+				});
+			});
+		</script>
+		
 		<table border="1">
 			<tr>
 				<th>번호</th>

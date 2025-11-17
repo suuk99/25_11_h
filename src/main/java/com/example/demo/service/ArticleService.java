@@ -21,8 +21,13 @@ public class ArticleService {
 		this.articleDao.writeArticle(title, content, loginMemberId, boardId);
 	}
 
+<<<<<<< HEAD
 	public List<Article> showList(int boardId, Paging paging) {
 		return this.articleDao.showList(boardId, paging);
+=======
+	public List<Article> showList(int boardId, String keyword) {
+		return this.articleDao.showList(boardId, keyword);
+>>>>>>> 2f2db68 (게시판 검색 기능 구현 중)
 	}
 
 	public Article getArticleById(int id) {

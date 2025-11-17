@@ -25,15 +25,30 @@ public interface ArticleDao {
 	public void writeArticle(String title, String content, int loginMemberId, int boardId);
 
 	@Select("""
+			<script>
 			SELECT a.id, a.regDate, a.title, m.loginId AS writerName
 				FROM article AS a
 				INNER JOIN `member` AS m
 				ON a.memberId = m.id
+<<<<<<< HEAD
 				WHERE a.boardId = #{boardId}
 				ORDER BY a.id DESC
 				LIMIT #{paging.pageStart}, #{paging.amount};
 			""")
 	public List<Article> showList(int boardId, Paging paging);
+=======
+				<where>
+					a.boardId = #{boardId}
+					<if test ="keyword != null and keyword != ''">
+						AND (a.title LIKE CONCAT('%', #{keyword}, '%') 
+						OR a.content LIKE CONCAT('%', #{keyword}, '%'))
+					</if>
+				</where>
+				ORDER BY a.id DESC
+			</script>
+			""")
+	public List<Article> showList(int boardId, String keyword);
+>>>>>>> 2f2db68 (게시판 검색 기능 구현 중)
 
 	@Select("""
 			SELECT a.id, a.regDate, a.updateDate, a.title, a.content, m.loginId AS writerName

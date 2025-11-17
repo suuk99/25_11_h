@@ -81,25 +81,19 @@ section {
 	font-weight: bold;
 }
 
-.list table tr {
-	border: 1px solid black;
-}
-
 .list table tr th {
 	padding: 5px 30px;
-	border: 1px solid black;	
 }
 
 .list table tr td {
 	padding: 6px 20px;
 	text-align: center;
-	border: 1px solid black;
 }
 
 .list .btn > a {
 	padding: 2px;
-	border: 1px solid black;
 	border-radius: 5px;
+	border: 1px solid black;
 }
 
 button {
@@ -156,4 +150,18 @@ button {
 .input_content > textarea {
 	height: 100%;
 	white-space: pre-wrap; 
+}
+
+.search {
+	display: flex;
+	justify-content: end;
+	margin-right: 34%;
+}
+
+.search > select {
+	margin-right: 5px;
+}
+
+.search > input {
+	margin-right: 10px;
 }
