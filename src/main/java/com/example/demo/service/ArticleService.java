@@ -22,12 +22,17 @@ public class ArticleService {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public List<Article> showList(int boardId, Paging paging) {
 		return this.articleDao.showList(boardId, paging);
 =======
 	public List<Article> showList(int boardId, String keyword) {
 		return this.articleDao.showList(boardId, keyword);
 >>>>>>> 2f2db68 (게시판 검색 기능 구현 중)
+=======
+	public List<Article> showList(int boardId, int limitFrom, int itemsInAPage) {
+		return this.articleDao.showList(boardId, limitFrom, itemsInAPage);
+>>>>>>> paging
 	}
 
 	public Article getArticleById(int id) {
@@ -46,9 +51,14 @@ public class ArticleService {
 		return this.articleDao.getLastInsertId();
 	}
 
+<<<<<<< HEAD
 	public int getTotalCountBoardId(int boardId) {
 		// TODO Auto-generated method stub
 		return this.articleDao.getTotalCountBoardId(boardId);
+=======
+	public int getArticlesCnt(int boardId) {
+		return this.articleDao.getArticlesCnt(boardId);
+>>>>>>> paging
 	}
 
 }

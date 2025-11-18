@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Article;
@@ -59,6 +60,7 @@ public class UsrArticleController {
 	
 	@GetMapping("/usr/article/list")
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public String list(Model model, int boardId, Paging paging, int page) {
 		
 		int totalCount = articleService.getTotalCountBoardId(boardId);
@@ -82,15 +84,42 @@ public class UsrArticleController {
 
 		List<Article> articles = this.articleService.showList(boardId, keyword);
 >>>>>>> 2f2db68 (게시판 검색 기능 구현 중)
+=======
+	public String list(Model model, int boardId, @RequestParam (defaultValue = "1") int cPage) {
+		int itemsInAPage = 10;
+		
+		int limitFrom = (cPage - 1) * itemsInAPage;
+		
+		int articlesCnt = this.articleService.getArticlesCnt(boardId);
+		
+		int totalPagesCnt = (int) Math.ceil(articlesCnt / (double) itemsInAPage);
+		
+		int begin = ((cPage - 1) / 10) * 10 + 1;
+		int end = (((cPage - 1) / 10) + 1) * 10;
+		
+		if (end > totalPagesCnt) {
+			end = totalPagesCnt;
+		}
+		
+		List<Article> articles = this.articleService.showList(boardId, limitFrom, itemsInAPage);
+>>>>>>> paging
 		String boardName = this.boardService.getBoardNameById(boardId);
 		
 		model.addAttribute("articles", articles);
 		model.addAttribute("boardName", boardName);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		model.addAttribute("paging", paging);
 =======
 		model.addAttribute("boardId",boardId);
 >>>>>>> 2f2db68 (게시판 검색 기능 구현 중)
+=======
+		model.addAttribute("totalPagesCnt", totalPagesCnt);
+		model.addAttribute("articlesCnt", articlesCnt);
+		model.addAttribute("begin", begin);
+		model.addAttribute("end", end);
+		model.addAttribute("cPage", cPage);
+>>>>>>> paging
 		
 		return "usr/article/list";
 	}
