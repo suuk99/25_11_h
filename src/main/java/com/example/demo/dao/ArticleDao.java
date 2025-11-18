@@ -24,15 +24,22 @@ public interface ArticleDao {
 	public void writeArticle(String title, String content, int loginMemberId, int boardId);
 
 	@Select("""
+			SELECT COUNT(id)
+				FROM article
+				WHERE boardId = #{boardId}
+			""")
+	public int getArticlesCnt(int boardId);
+	
+	@Select("""
 			SELECT a.id, a.regDate, a.title, m.loginId AS writerName
 				FROM article AS a
 				INNER JOIN `member` AS m
 				ON a.memberId = m.id
-				WHERE a.boardId = #{boardID}
+				WHERE a.boardId = #{boardId}
 				ORDER BY a.id DESC
-				LIMIT 10 OFFSET 0;
+				LIMIT #{limitFrom}, #{itemsInAPage}
 			""")
-	public List<Article> showList(int boardId);
+	public List<Article> showList(int boardId, int limitFrom, int itemsInAPage);
 
 	@Select("""
 			SELECT a.id, a.regDate, a.updateDate, a.title, a.content, m.loginId AS writerName

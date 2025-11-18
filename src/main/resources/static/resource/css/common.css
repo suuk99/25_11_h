@@ -81,19 +81,13 @@ section {
 	font-weight: bold;
 }
 
-.list table tr {
-	border: 1px solid black;
-}
-
 .list table tr th {
 	padding: 5px 30px;
-	border: 1px solid black;	
 }
 
 .list table tr td {
 	padding: 6px 20px;
 	text-align: center;
-	border: 1px solid black;
 }
 
 .list .btn > a {
@@ -142,7 +136,7 @@ button {
 }
 
 .dropdown > ul > li {
-	padding:8px 3px;
+	padding:8px 8px;
 }
 
 .dropdown ul li:hover {
