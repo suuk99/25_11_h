@@ -152,16 +152,28 @@ button {
 	white-space: pre-wrap; 
 }
 
+<<<<<<< HEAD
 .search {
+=======
+.searchBox {
+>>>>>>> temp
 	display: flex;
 	justify-content: end;
 	margin-right: 34%;
 }
 
+<<<<<<< HEAD
 .search > select {
 	margin-right: 5px;
 }
 
 .search > input {
+=======
+.searchBox > select {
+	margin-right: 5px;
+}
+
+.searchBox > input {
+>>>>>>> temp
 	margin-right: 10px;
 }

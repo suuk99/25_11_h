@@ -14,6 +14,9 @@ public class Article {
 	private String title;
 	private String content;
 	private String writerName;
+<<<<<<< HEAD
 	private int boardId;
+=======
+>>>>>>> temp
 	private String keyword;
 }

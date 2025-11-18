@@ -9,6 +9,7 @@
 		<div class="top_name">${boardName}</div>
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<form id = "searchForm" action="list" method="get">
 		<select name="boardId">
     		<c:forEach items="${boards}" var="board">
@@ -55,6 +56,22 @@
 			<a href="#">검색</a>
 		</div>
 >>>>>>> paging
+=======
+		<form action="/usr/article/list" method="get">
+			<div class="searchBox">
+				<input type="hidden" name="boardId" value="${boardId }" />
+				
+				<select name="searchType" id="searchSelect">
+					<option value="title" ${searchType == 'title' ? 'selected' : ''}>제목</option>
+					<option value="content" ${searchType == 'content' ? 'selected' : ''}>내용</option>
+					<option value="titleAndContent" ${searchType == 'titleAndContent' ? 'selected' : ''}>제목+내용</option>
+				</select>
+				
+				<input name="keyword" id="keyword" type="text" value="${keyword}"placeholder=" 검색어를 입력하세요." />
+				<button type="submit">검색</button>
+			</div>
+		</form>
+>>>>>>> temp
 		<table border="1">
 			<tr>
 				<th>번호</th>
@@ -101,7 +118,7 @@
 		</div>
 		<div class="flex justify-center">
 				<div class="join">
-					<c:set var="queryString" value="?boardId=${param.boardId }" />
+					<c:set var="queryString" value="?boardId=${param.boardId }&keyword=${keyword}&searchType=${searchType }" />
 					
 					<c:if test="${begin != 1 }">
 						<a class="join-item btn btn-sm" href="${queryString }&cPage=1"><i class="fa-solid fa-angles-left"></i></a>

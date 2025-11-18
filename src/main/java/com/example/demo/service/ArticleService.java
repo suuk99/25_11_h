@@ -23,6 +23,7 @@ public class ArticleService {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public List<Article> showList(int boardId, Paging paging) {
 		return this.articleDao.showList(boardId, paging);
 =======
@@ -33,6 +34,10 @@ public class ArticleService {
 	public List<Article> showList(int boardId, int limitFrom, int itemsInAPage) {
 		return this.articleDao.showList(boardId, limitFrom, itemsInAPage);
 >>>>>>> paging
+=======
+	public List<Article> showList(int boardId, String keyword, String searchType, int limitFrom, int itemsInAPage) {
+		return this.articleDao.showList(boardId, keyword, searchType, limitFrom, itemsInAPage);
+>>>>>>> temp
 	}
 
 	public Article getArticleById(int id) {

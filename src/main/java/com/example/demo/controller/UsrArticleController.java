@@ -61,6 +61,7 @@ public class UsrArticleController {
 	@GetMapping("/usr/article/list")
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public String list(Model model, int boardId, Paging paging, int page) {
 		
 		int totalCount = articleService.getTotalCountBoardId(boardId);
@@ -86,14 +87,16 @@ public class UsrArticleController {
 >>>>>>> 2f2db68 (게시판 검색 기능 구현 중)
 =======
 	public String list(Model model, int boardId, @RequestParam (defaultValue = "1") int cPage) {
+=======
+	public String list(Model model, int boardId, @RequestParam (defaultValue = "1") int cPage, @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchType) {
+		
+>>>>>>> temp
 		int itemsInAPage = 10;
-		
 		int limitFrom = (cPage - 1) * itemsInAPage;
-		
 		int articlesCnt = this.articleService.getArticlesCnt(boardId);
-		
 		int totalPagesCnt = (int) Math.ceil(articlesCnt / (double) itemsInAPage);
 		
+		//페이징
 		int begin = ((cPage - 1) / 10) * 10 + 1;
 		int end = (((cPage - 1) / 10) + 1) * 10;
 		
@@ -101,8 +104,12 @@ public class UsrArticleController {
 			end = totalPagesCnt;
 		}
 		
+<<<<<<< HEAD
 		List<Article> articles = this.articleService.showList(boardId, limitFrom, itemsInAPage);
 >>>>>>> paging
+=======
+		List<Article> articles = this.articleService.showList(boardId, keyword, searchType, limitFrom, itemsInAPage);
+>>>>>>> temp
 		String boardName = this.boardService.getBoardNameById(boardId);
 		
 		model.addAttribute("articles", articles);
@@ -119,7 +126,13 @@ public class UsrArticleController {
 		model.addAttribute("begin", begin);
 		model.addAttribute("end", end);
 		model.addAttribute("cPage", cPage);
+<<<<<<< HEAD
 >>>>>>> paging
+=======
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("boardId", boardId);
+>>>>>>> temp
 		
 		return "usr/article/list";
 	}
