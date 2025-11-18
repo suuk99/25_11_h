@@ -44,4 +44,20 @@ public class ArticleService {
 		return this.articleDao.getArticlesCnt(boardId);
 	}
 
+	public int getGoodPoint(int loginedMemberId, int id) {
+		return this.articleDao.getGoodPoint(loginedMemberId, id);
+	}
+
+	public int getGoodCnt(int id) {
+		return this.articleDao.getGoodCnt(id);
+	}
+
+	public void goodAdd(int id, int loginedMemberId) {
+		this.articleDao.goodAdd(id, loginedMemberId);
+	}
+
+	public void goodRemove(int id, int loginedMemberId) {
+		this.articleDao.goodRemove(id, loginedMemberId);
+	}
+
 }

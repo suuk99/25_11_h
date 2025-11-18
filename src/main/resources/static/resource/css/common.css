@@ -165,3 +165,7 @@ button {
 .searchBox > input {
 	margin-right: 10px;
 }
+
+.heart {
+	color: red;
+}

@@ -90,4 +90,34 @@ public interface ArticleDao {
 
 	@Select("SELECT LAST_INSERT_ID()")
 	public int getLastInsertId();
+
+	@Select("""
+			SELECT COUNT(*)
+				FROM goodPoint
+				WHERE memberId = #{loginedMemberId}
+			 	AND articleId = #{id}
+			""")
+	public int getGoodPoint(int loginedMemberId, int id);
+
+	@Select("""
+			SELECT COUNT(*)
+				FROM goodPoint
+				WHERE articleId = #{id}
+			""")
+	public int getGoodCnt(int id);
+	
+	@Insert ("""
+			INSERT INTO goodPoint
+				SET memberId = #{loginedMemberId},
+					articleId = #{id}
+			""")
+
+	public void goodAdd(int id, int loginedMemberId);
+	
+	@Delete("""
+			DELETE FROM goodPoint
+				WHERE memberId = #{loginedMemberId}
+				AND	articleId = #{id}
+			""")
+	public void goodRemove(int id, int loginedMemberId);
 }

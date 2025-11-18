@@ -2,6 +2,10 @@ package com.example.demo.dto;
 
 import java.io.IOException;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
 import com.example.demo.util.Util;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,35 +13,50 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 
+@Component
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Req {
 	
 	@Getter
-	private int loginMemberId;
-	private HttpServletResponse resp;
+	private LoginMember loginedMember;
 	
-	public Req(HttpServletRequest req, HttpServletResponse resp) {
+	private HttpServletResponse resp;
+	private HttpSession session;
+	
+	public Req(HttpServletRequest request, HttpServletResponse response) {
 		
-		this.resp = resp;
+		this.resp = response;
 		
-		HttpSession session = req.getSession();
+		this.session = request.getSession();
 		
-		int loginMemberId = -1;
-		
-		if (session.getAttribute("loginMemberId") != null) {
-			loginMemberId = (int) session.getAttribute("loginMemberId");
+		this.loginedMember = (LoginMember) this.session.getAttribute("loginedMember"); 
+
+		if (this.loginedMember == null) {
+			this.loginedMember = new LoginMember();
 		}
 		
-		this.loginMemberId = loginMemberId;
+		request.setAttribute("req", this);
 	}
 	
-	public void jsPrintReplace(String msg, String url) {
+	public void jsPrintReplace(String msg, String uri) {
 		
-		this.resp.setContentType("text/html; charset=UTF-8");
+		this.resp.setContentType("text/html; charset=UTF-8;");
 		
 		try {
-			this.resp.getWriter().append(Util.jsReplace(msg, url));
+			this.resp.getWriter().append(Util.jsReplace(msg, uri));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void login(LoginMember loginMember) {
+		this.session.setAttribute("loginedMember", loginMember);
+	}
+
+	public void logout() {
+		this.session.invalidate();
+	}
+
+	public void init() {
 	}
 }

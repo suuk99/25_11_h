@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Article;
+import com.example.demo.dto.Req;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.BoardService;
 import com.example.demo.util.Util;
@@ -21,10 +24,13 @@ public class UsrArticleController {
 	
 	private ArticleService articleService;
 	private BoardService boardService;
+	private Req req;
 	
-	public UsrArticleController(ArticleService articleService, BoardService boardService) {
+	
+	public UsrArticleController(ArticleService articleService, BoardService boardService, Req req) {
 		this.articleService = articleService;
 		this.boardService = boardService;
+		this.req = req;
 	}
 	
 	@GetMapping("/usr/article/write")
@@ -91,12 +97,55 @@ public class UsrArticleController {
 	@GetMapping("/usr/article/detail")
 	public String detail(Model model, int id) {
 		
+		int loginMemberId = 0;
+		
+		int isGood = 0;
+		
+		if(loginMemberId != 0) {
+		  loginMemberId = req.getLoginedMember().getId();
+		  isGood =	this.articleService.getGoodPoint(loginMemberId, id);
+		}
+		 
+		int goodPointCnt = this.articleService.getGoodCnt(id);
+		
 		Article article = this.articleService.getArticleById(id);
 		
 		model.addAttribute("article", article);
+		model.addAttribute("goodPointCnt", goodPointCnt);
+		model.addAttribute("isGood", isGood);
 		
 		return "usr/article/detail";
 	}
+	
+	@GetMapping("/usr/article/goodPoint")
+	@ResponseBody
+	public Map<String, Object> goodPoint(@RequestParam int id) {
+		Map<String, Object> result = new HashMap<>();
+		
+		if (req.getLoginedMember() == null) {
+			result.put("result", "notLogin");
+			return result;
+		}
+		
+	    int loginMemberId = req.getLoginedMember().getId();
+	    int isGood = articleService.getGoodPoint(loginMemberId, id);
+
+	    if (isGood == 0) {
+	        articleService.goodAdd(id, loginMemberId);
+	        isGood = 1;
+	    } else {
+	        articleService.goodRemove(id, loginMemberId);
+	        isGood = 0;
+	    }
+
+	    int goodCnt = articleService.getGoodCnt(id);
+
+	    result.put("result", isGood == 1 ? "add" : "remove");
+	    result.put("goodCnt", goodCnt);
+
+	    return result;
+	}
+	
 	
 	@GetMapping("/usr/article/modify")
 	public String modify(Model model, int id) {
@@ -123,7 +172,7 @@ public class UsrArticleController {
 		
 		this.articleService.deleteArticle(id);
 		
-		return Util.jsReplace(String.format("%d번 게시물이 삭제 되었습니다.", id), "list");
+		return Util.jsReplace(String.format("%d번 게시물이 삭제 되었습니다.", id),"list?boardId=1");
 	}
 	
 }
