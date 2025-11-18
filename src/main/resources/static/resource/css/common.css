@@ -151,3 +151,17 @@ button {
 	height: 100%;
 	white-space: pre-wrap; 
 }
+
+.searchBox {
+	display: flex;
+	justify-content: end;
+	margin-right: 34%;
+}
+
+.searchBox > select {
+	margin-right: 5px;
+}
+
+.searchBox > input {
+	margin-right: 10px;
+}

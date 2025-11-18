@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -31,15 +32,31 @@ public interface ArticleDao {
 	public int getArticlesCnt(int boardId);
 	
 	@Select("""
+			<script>
 			SELECT a.id, a.regDate, a.title, m.loginId AS writerName
 				FROM article AS a
 				INNER JOIN `member` AS m
 				ON a.memberId = m.id
 				WHERE a.boardId = #{boardId}
+				<if test="keyword != null and keyword != ''">
+					<choose>
+						<when test="searchType == 'title'">
+						 	AND a.title LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<when test="searchType == 'content'">
+						 	AND a.content LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<otherwise>
+							AND (a.title LIKE CONCAT('%', #{keyword}, '%')
+							OR a.content LIKE CONCAT('%', #{keyword}, '%'))
+						</otherwise>
+					</choose>
+				</if>
 				ORDER BY a.id DESC
 				LIMIT #{limitFrom}, #{itemsInAPage}
+			</script>
 			""")
-	public List<Article> showList(int boardId, int limitFrom, int itemsInAPage);
+	public List<Article> showList(@Param("boardId") int boardId, @Param("keyword") String keyword, @Param("searchType") String searchType, @Param("limitFrom") int limitFrom, @Param("itemsInAPage")int itemsInAPage);
 
 	@Select("""
 			SELECT a.id, a.regDate, a.updateDate, a.title, a.content, m.loginId AS writerName

@@ -56,15 +56,14 @@ public class UsrArticleController {
 	}
 	
 	@GetMapping("/usr/article/list")
-	public String list(Model model, int boardId, @RequestParam (defaultValue = "1") int cPage) {
+	public String list(Model model, int boardId, @RequestParam (defaultValue = "1") int cPage, @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchType) {
+		
 		int itemsInAPage = 10;
-		
 		int limitFrom = (cPage - 1) * itemsInAPage;
-		
 		int articlesCnt = this.articleService.getArticlesCnt(boardId);
-		
 		int totalPagesCnt = (int) Math.ceil(articlesCnt / (double) itemsInAPage);
 		
+		//페이징
 		int begin = ((cPage - 1) / 10) * 10 + 1;
 		int end = (((cPage - 1) / 10) + 1) * 10;
 		
@@ -72,7 +71,7 @@ public class UsrArticleController {
 			end = totalPagesCnt;
 		}
 		
-		List<Article> articles = this.articleService.showList(boardId, limitFrom, itemsInAPage);
+		List<Article> articles = this.articleService.showList(boardId, keyword, searchType, limitFrom, itemsInAPage);
 		String boardName = this.boardService.getBoardNameById(boardId);
 		
 		model.addAttribute("articles", articles);
@@ -82,6 +81,9 @@ public class UsrArticleController {
 		model.addAttribute("begin", begin);
 		model.addAttribute("end", end);
 		model.addAttribute("cPage", cPage);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("boardId", boardId);
 		
 		return "usr/article/list";
 	}
