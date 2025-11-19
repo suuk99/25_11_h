@@ -2,123 +2,61 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:set var="pageTitle" value="${boardName }"/>
+<c:set var="pageTitle" value="${boardName}"/>
 
 <%@ include file="/view/usr/common/header.jsp" %>
-	<nav class="list">
-		<div class="top_name">${boardName}</div>
-		
-<<<<<<< HEAD
-<<<<<<< HEAD
-		<form id = "searchForm" action="list" method="get">
-		<select name="boardId">
-    		<c:forEach items="${boards}" var="board">
-        		<option value="${board.id}" ${board.id == boardId ? "selected" : ""}>${board.name}</option>
-   			</c:forEach>
-		</select>
-		<div class="search">
-				<select name="searchPart" id="searchPart">
-					<option value="title">제목</option>
-					<option value="content">내용</option>
-					<option value="titleAndContent">제목 + 내용</option>
-				</select>
-				<input name="keyword" id="keyword" type="text" placeholder="검색어를 입력해주세요"/>
-				<a href="#" id="searchBtn">검색</a>
-			</div>
-		</form>
-		
-		<script>
-			$(function() {
-				$('#searchBtn').click(function(e) {
-					e.preventDefault();
-					
-					const keyword = $('#keyword').val().trim();
-					const searchPart = $('#searchPart').val();
-					const boardId = "${boardId}";
-					
-					if (!keyword) {
-						alert('검색어를 입력해 주세요.');
-						return;
-					}
-					$("#searchForm").submit();
-				});
-			});
-		</script>
-		
-=======
-		<div class="searchBox">
-			<select name="searchSelect" id="">
-				<option value="0">제목</option>
-				<option value="1">내용</option>
-				<option value="2">제목+내용</option>
-			</select>
-			<input name="searchInput" type="text" placeholder=" 검색어를 입력하세요." />
-			<a href="#">검색</a>
-		</div>
->>>>>>> paging
-=======
-		<form action="/usr/article/list" method="get">
-			<div class="searchBox">
-				<input type="hidden" name="boardId" value="${boardId }" />
-				
-				<select name="searchType" id="searchSelect">
-					<option value="title" ${searchType == 'title' ? 'selected' : ''}>제목</option>
-					<option value="content" ${searchType == 'content' ? 'selected' : ''}>내용</option>
-					<option value="titleAndContent" ${searchType == 'titleAndContent' ? 'selected' : ''}>제목+내용</option>
-				</select>
-				
-				<input name="keyword" id="keyword" type="text" value="${keyword}"placeholder=" 검색어를 입력하세요." />
-				<button type="submit">검색</button>
-			</div>
-		</form>
->>>>>>> temp
-		<table border="1">
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
+<nav class="list">
+    <div class="top_name">${boardName}</div>
+    
+    <form action="/usr/article/list" method="get">
+        <div class="searchBox">
+            <input type="hidden" name="boardId" value="${param.boardId}" />
+            
+            <select name="searchType">
+                <option value="title" <c:if test="${param.searchType == 'title'}">selected</c:if>>제목</option>
+                <option value="content" <c:if test="${param.searchType == 'content'}">selected</c:if>>내용</option>
+                <option value="titleAndContent" <c:if test="${param.searchType == 'titleAndContent'}">selected</c:if>>제목+내용</option>
+            </select>
+            
+            <input name="keyword" type="text" value="${param.keyword}" placeholder=" 검색어를 입력하세요." />
+            <button type="submit">검색</button>
+        </div>
+    </form>
+    
+    <table border="1">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+        <c:forEach items="${articles}" var="article">
+            <tr>
+                <td>${article.getId()}</td>
+                <td class="hover:underline underline-offset-4"><a href="/usr/article/detail?id=${article.getId() }">${article.getTitle() }</a></td>
+				<td>${article.getWriterName() }</td>
+				<td>${article.getRegDate() }</td>
 			</tr>
-			<c:forEach items="${articles }" var="article">
-				<tr>
-					<td>${article.getId() }</td>
-					<td><a href="/usr/article/detail?id=${article.getId() }">${article.getTitle() }</a></td>
-					<td>${article.getWriterName() }</td>
-					<td>${article.getRegDate() }</td>
-				</tr>
-			</c:forEach>
-		</table>
-		
-		<div class="pagination">
-    <c:if test="${paging.startPage > 1}">
-        <a href="/usr/article/list?boardId=${boardId}&page=${paging.startPage - 1}">&laquo; 이전</a>
-    </c:if>
-
-    <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i">
-        <c:choose>
-            <c:when test="${i == paging.page}">
-                <span>${i}</span>
-            </c:when>
-            <c:otherwise>
-                <a href="/usr/article/list?boardId=${boardId}&page=${i}">${i}</a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
-
-    <c:if test="${paging.endPage < paging.totalPage}">
-        <a href="/usr/article/list?boardId=${boardId}&page=${paging.endPage + 1}">다음 &raquo;</a>
-    </c:if>
-</div>
-		
-		<div class="btn">
-			<button onclick="history.back();">뒤로가기</button>
-			<c:if test="${sessionScope.loginMemberId != null }">
-				<a href="/usr/article/write">글쓰기</a>
-			</c:if>
-		</div>
-		<div class="flex justify-center">
+		</c:forEach>
+	</table>
+			<div class="bg-white px-6 pt-6 flex justify-end">
+				<c:if test="${req.getLoginedMember().getId() != 0 }">
+					<c:choose>
+						<c:when test="${req.getLoginedMember().getAuthLevel() == 0 }">
+							<div><a class="btn btn-neutral btn-outline btn-xs" href="/usr/article/write?boardId=${param.boardId }">글쓰기</a></div>
+						</c:when>
+						<c:otherwise>
+							<c:if test="${param.boardId != 1 }">
+								<div><a class="btn btn-neutral btn-outline btn-xs" href="/usr/article/write?boardId=${param.boardId }">글쓰기</a></div>
+							</c:if>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+			</div>
+			
+			<div class="flex justify-center">
 				<div class="join">
-					<c:set var="queryString" value="?boardId=${param.boardId }&keyword=${keyword}&searchType=${searchType }" />
+					<c:set var="queryString" value="?boardId=${param.boardId }&searchType=${param.searchType }&keyword=${keyword }" />
 					
 					<c:if test="${begin != 1 }">
 						<a class="join-item btn btn-sm" href="${queryString }&cPage=1"><i class="fa-solid fa-angles-left"></i></a>

@@ -19,6 +19,7 @@ body {
 section {
 	display: flex;
 	justify-content: space-between;
+	margin-bottom: 90px;
 }
 
 /* header  */
@@ -51,13 +52,13 @@ section {
 	width: 900px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 90px;
+	margin-top: 110px;
 }
 .main_title {
 	font-size: 28px;
 	font-weight: bold;
 	text-align: center;
-	margin-bottom: 30px;
+	margin-bottom: 50px;
 }
 
 /* 리스트 */
@@ -96,10 +97,13 @@ section {
 	border: 1px solid black;
 }
 
-button {
-	border: 1px solid black;
-	border-radius: 5px;
+.btn .goodCnt {
+	margin-top: 15px;
+	margin-right: 30px;
+}
+.btn button {
 	padding: 2px;
+	cursor: pointer;
 }
 /* 로그인 시 환영 멘트 */
 .header .top .ment {
@@ -152,28 +156,16 @@ button {
 	white-space: pre-wrap; 
 }
 
-<<<<<<< HEAD
-.search {
-=======
 .searchBox {
->>>>>>> temp
 	display: flex;
 	justify-content: end;
 	margin-right: 34%;
 }
 
-<<<<<<< HEAD
-.search > select {
-	margin-right: 5px;
-}
-
-.search > input {
-=======
 .searchBox > select {
 	margin-right: 5px;
 }
 
 .searchBox > input {
->>>>>>> temp
-	margin-right: 10px;
+	margin-right: 5px;
 }

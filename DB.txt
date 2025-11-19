@@ -38,6 +38,4 @@ INSERT INTO board (boardName)
            ('자유게시판'),
            ('질문과 답변');
            
-
-
 SELECT * FROM board;

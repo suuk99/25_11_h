@@ -36,6 +36,8 @@
 		</table>
 		
 		<div class="btn">
+			<button ><span class="heart">♡ </span> 좋아요</button>
+			<div class="goodCnt">숫자</div>
 			<button onclick="history.back();">뒤로가기</button>
 			<c:if test="${sessionScope.loginMemberName == article.writerName}">
 				<a href="/usr/article/modify?id=${article.getId() }">수정</a>
