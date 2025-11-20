@@ -111,6 +111,7 @@ public class UsrMemberController {
 		// 로그인 성공 시 세션에 저장
 		session.setAttribute("loginMemberId", loginMember.getId());
 		session.setAttribute("loginMemberName", loginMember.getUserName());
+		session.setAttribute("loginMember", loginMember);
 		return Util.jsReplace(null, "/");
 	}
 	

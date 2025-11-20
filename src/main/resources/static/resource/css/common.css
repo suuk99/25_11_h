@@ -169,3 +169,12 @@ section {
 .searchBox > input {
 	margin-right: 5px;
 }
+
+.heart {
+	color: red;
+}
+
+#likeCnt {
+	margin-top: 14px;
+	margin-right: 22px;
+}

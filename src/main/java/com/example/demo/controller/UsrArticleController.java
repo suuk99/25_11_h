@@ -117,32 +117,30 @@ public class UsrArticleController {
         return "usr/article/detail";
     }
     
-    @PostMapping("/article/toggleLike")
+    @PostMapping("/usr/article/toggleLike")
     @ResponseBody
     public Map<String, Object> toggleLike(int articleId, HttpSession session) {
     	
-    	MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+    	Integer loginMemberId = (Integer) session.getAttribute("loginMemberId");
     	
     	Map<String, Object> result = new HashMap<>();
     	
-    	if (loginMember == null) {
+    	if (loginMemberId == null) {
     		result.put("status", "fail");
     		return result;
     	} 
     	
-    	int memberId = loginMember.getId();
-    	
-    	boolean hasLiked = articleService.hasLiked(articleId, memberId);
+    	boolean hasLiked = articleService.hasLiked(articleId, loginMemberId);
     	
     	if (hasLiked) {
-    		articleService.cancleLike(articleId, memberId);
+    		articleService.cancleLike(articleId, loginMemberId);
     	} else {
-    		articleService.addLike(articleId, memberId);
+    		articleService.addLike(articleId, loginMemberId);
     	}
     	
     	int likeCount = articleService.getLikeCount(articleId);
     	
-    	result.put("status", "succcess");
+    	result.put("status", "success");
     	result.put("liked", !hasLiked);
     	result.put("likeCount", likeCount);
     	

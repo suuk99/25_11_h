@@ -114,27 +114,27 @@ public interface ArticleDao {
     @Select("""
     		SELECT COUNT(*)
     			FROM goodPoint
-    			WHERE articleId = #{articleID}
-    			AND memberID = #{memberID}
+    			WHERE articleId = #{articleId}
+    			AND memberId = #{memberId}
     		""")
 	int hasLiked(int articleId, int memberId);
     
     @Select("""
     		SELECT COUNT(*)
-    			FROM article_like
+    			FROM goodPoint
     			WHERE articleId = #{articleId}
     		""")
 	int getLikeCount(int articleId);
     
     @Delete("""
-    		  DELETE FROM article_like
+    		  DELETE FROM goodPoint
     			WHERE articleId = #{articleId}
     			AND memberId = #{memberId}
     		""")
 	void cancleLike(int articleId, int memberId);
     
     @Insert("""
-    		 INSERT INTO article_like (articleId, memberId)
+    		 INSERT INTO goodPoint (articleId, memberId)
     			VALUES (#{articleId}, #{memberId})
     		""")
 	void addLike(int articleId, int memberId);
